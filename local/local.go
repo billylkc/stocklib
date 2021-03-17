@@ -2,6 +2,7 @@ package local
 
 import (
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/billylkc/stocklib/db"
@@ -26,27 +27,32 @@ type StockPrice struct {
 }
 
 // GetStockPrice gets the historical stock price of a certain code
-func GetStockPrice(code int) ([]StockPrice, error) {
+func GetStockPrice(code ...int) ([]StockPrice, error) {
 	var result []StockPrice
 	database, err := db.GetConnection()
 	if err != nil {
 		return result, err
 	}
 
+	var codeList []string
+	for _, c := range code {
+		codeList = append(codeList, fmt.Sprintf("'%05d'", c))
+	}
 	// Query data
-	c := fmt.Sprintf("%05d", code)
+
 	queryF := `
     SELECT
        code, date, close
     FROM
        stock
     WHERE
-       code = '%s'
+       code IN (%s)
     ORDER BY
        date desc
     LIMIT 50;
     `
-	query := fmt.Sprintf(queryF, c)
+	query := fmt.Sprintf(queryF, strings.Join(codeList, ","))
+	fmt.Println(query)
 	rows, err := database.Query(query)
 	defer rows.Close()
 	if err != nil {
