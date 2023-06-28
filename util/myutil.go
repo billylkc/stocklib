@@ -17,6 +17,12 @@ func PrettyPrint(i interface{}) string {
 	return string(s)
 }
 
+func Test() error {
+	fmt.Println("Test")
+
+	return nil
+}
+
 // PercentChange calculates the percentage changes
 func PercentChange(current, prev float64) float64 {
 	if current == 0 || prev == 0 {

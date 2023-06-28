@@ -9,14 +9,6 @@ import (
 	"github.com/billylkc/stocklib/util"
 )
 
-func Test() string {
-	return "Local test"
-}
-
-func AnotherTest() string {
-	return "Another Local test"
-}
-
 type StockPrice struct {
 	Code     string
 	DateRaw  time.Time // real date format

@@ -126,6 +126,9 @@ func getPerformance(date, link string) ([]Performance, error) {
 		one_w    float64
 		ytd      float64
 	)
+
+	_ = one_y
+
 	doc.Find("h1").Each(func(i int, s *goquery.Selection) {
 		text := s.Text() // e.g. Industry Details - Materials - Chemical Products
 		texts := strings.Split(text, "-")
