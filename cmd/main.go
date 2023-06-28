@@ -1,9 +1,16 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/billylkc/stocklib/stock"
 )
 
 func main() {
-	stock.HketTest()
+	err := stock.HketTest()
+	if err != nil {
+		fmt.Println(err)
+
+	}
+
 }
